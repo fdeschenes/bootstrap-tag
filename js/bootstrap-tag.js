@@ -61,7 +61,6 @@
           that.element.siblings('.tag').removeClass('tag-important')
         })
         .on('keydown', function ( event ) {
-          console.log(event.keyCode == 188)
           if ( event.keyCode == 188 || event.keyCode == 13 || event.keyCode == 9 ) {
             if ( $.trim($(this).val()) && ( !that.element.siblings('.typeahead').length || that.element.siblings('.typeahead').is(':hidden') ) ) {
               var values = $.grep($.map($(this).val().split(','), $.trim), function ( value ) { return value.length > 0 })
