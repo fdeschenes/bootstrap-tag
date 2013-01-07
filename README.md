@@ -22,4 +22,4 @@ Alternatively, you can initialize via JavaScript:
 
 ## Example
 
-I've included an example in `docs` folder.
+You can try it [here](http://fdeschenes.github.com/bootstrap-tag/). I've also included the example in the `docs` folder.
