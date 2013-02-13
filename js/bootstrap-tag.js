@@ -57,18 +57,15 @@
           that.element.parent().addClass('tags-hover')
         })
         .on('blur', function () {
+          that.process()
           that.element.parent().removeClass('tags-hover')
           that.element.siblings('.tag').removeClass('tag-important')
         })
         .on('keydown', function ( event ) {
           if ( event.keyCode == 188 || event.keyCode == 13 || event.keyCode == 9 ) {
             if ( $.trim($(this).val()) && ( !that.element.siblings('.typeahead').length || that.element.siblings('.typeahead').is(':hidden') ) ) {
-              var values = $.grep($.map($(this).val().split(','), $.trim), function ( value ) { return value.length > 0 })
               if ( event.keyCode != 9 ) event.preventDefault()
-              $.each(values, function() {
-                that.add(this)
-              })
-              $(this).val('')
+              that.process()
             } else if ( event.keyCode == 188 ) {
               if ( !that.element.siblings('.typeahead').length || that.element.siblings('.typeahead').is(':hidden') ) {
                 event.preventDefault()
@@ -149,6 +146,14 @@
         this.element.siblings('.tag:eq(' + index + ')').remove()
         this.element.val(this.values.join(', '))
       }
+    }
+  , process: function () {
+      var values = $.grep($.map(this.input.val().split(','), $.trim), function ( value ) { return value.length > 0 }),
+          that = this
+      $.each(values, function() {
+        that.add(this)
+      })
+      this.input.val('')
     }
   }
   
