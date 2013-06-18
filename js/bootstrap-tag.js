@@ -1,5 +1,5 @@
 /* ==========================================================
- * bootstrap-tag.js v2.2.2
+ * bootstrap-tag.js v2.2.3
  * https://github.com/fdeschenes/bootstrap-tag
  * ==========================================================
  * Copyright 2012 Francois Deschenes.
@@ -57,9 +57,12 @@
           that.element.parent().addClass('tags-hover')
         })
         .on('blur', function () {
-          that.process()
-          that.element.parent().removeClass('tags-hover')
-          that.element.siblings('.tag').removeClass('tag-important')
+          if (!that.skip) {
+            that.process()
+            that.element.parent().removeClass('tags-hover')
+            that.element.siblings('.tag').removeClass('tag-important')
+          }
+          that.skip = false
         })
         .on('keydown', function ( event ) {
           if ( event.keyCode == 188 || event.keyCode == 13 || event.keyCode == 9 ) {
@@ -93,6 +96,10 @@
           }
         , updater: $.proxy(that.add, that)
         })
+
+      $(that.input.data('typeahead').$menu).on('mousedown', function() {
+        that.skip = true
+      })
     }
   , inValues: function ( value ) {
       if (this.options.caseInsensitive) {
@@ -155,6 +162,7 @@
       })
       this.input.val('')
     }
+  , skip: false
   }
   
   var old = $.fn.tag
