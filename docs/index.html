@@ -2,11 +2,11 @@
 <html>
   <head>
     <title>Bootstrap Tag</title>
-    <!-- Bootstrap -->
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap-tag.css" rel="stylesheet">
-    <link href="http://twitter.github.com/bootstrap/assets/css/docs.css" rel="stylesheet">
-    <link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="http://twitter.github.com/bootstrap/2.3.2/assets/css/docs.css" rel="stylesheet">
+    <link href="http://twitter.github.io/bootstrap/2.3.2/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
     
     <style type="text/css">
         .prettyprint .tag {
@@ -76,13 +76,37 @@
           <h3>Methods</h3>
           <h4>.tag(options)</h4>
           <p>Initializes an input with tags.</p>
+          <h3>Events</h3>
+          <p>A few events are available for hooking into tag functionality.</p>
+          <table class="table table-bordered table-striped">
+            <thead>
+             <tr>
+               <th style="width: 150px;">Event</th>
+               <th>Description</th>
+             </tr>
+            </thead>
+            <tbody>
+             <tr>
+               <td>added</td>
+               <td>This event is fired immediately after a tag has been successfully added. The event handler will be passed the <code>value</code> that was added.</td>
+             </tr>
+             <tr>
+               <td>removed</td>
+               <td>This event is fired immediately after a tag has been successfully removed. The event handler will be passed the <code>value</code> that was removed.</td>
+             </tr>
+            </tbody>
+          </table>
+          <pre class="prettyprint linenums">
+$('#myTag').on('added', function (e, value) {
+  // do something...
+})</pre>
         </section>
       </div>
     </div>
     <!-- Bootstrap -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
-    <script src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="http://twitter.github.io/bootstrap/2.3.2/assets/js/google-code-prettify/prettify.js"></script>
     <script src="../js/bootstrap-tag.js"></script>
     <script>
         !function ($) {

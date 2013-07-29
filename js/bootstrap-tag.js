@@ -1,5 +1,5 @@
 /* ==========================================================
- * bootstrap-tag.js v2.2.3
+ * bootstrap-tag.js v2.2.4
  * https://github.com/fdeschenes/bootstrap-tag
  * ==========================================================
  * Copyright 2012 Francois Deschenes.
@@ -100,6 +100,8 @@
       $(that.input.data('typeahead').$menu).on('mousedown', function() {
         that.skip = true
       })
+      
+      this.element.trigger('shown')
     }
   , inValues: function ( value ) {
       if (this.options.caseInsensitive) {
@@ -145,13 +147,17 @@
       this.values.push(value)
       this.createBadge(value)
       
+      this.element.trigger('added', [value])
+      
       this.element.val(this.values.join(', '))
     }
   , remove: function ( index ) {
       if ( index >= 0 ) {
-        this.values.splice(index, 1)
+        var value = this.values.splice(index, 1)
         this.element.siblings('.tag:eq(' + index + ')').remove()
         this.element.val(this.values.join(', '))
+        
+        this.element.trigger('removed', [value])
       }
     }
   , process: function () {
