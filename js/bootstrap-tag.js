@@ -147,9 +147,8 @@
       this.values.push(value)
       this.createBadge(value)
       
-      this.element.trigger('added', [value])
-      
       this.element.val(this.values.join(', '))
+      this.element.trigger('added', [value])
     }
   , remove: function ( index ) {
       if ( index >= 0 ) {
