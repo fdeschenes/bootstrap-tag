@@ -1,5 +1,5 @@
 /* ==========================================================
- * bootstrap-tag.js v2.2.4
+ * bootstrap-tag.js v2.2.5
  * https://github.com/fdeschenes/bootstrap-tag
  * ==========================================================
  * Copyright 2012 Francois Deschenes.
@@ -20,36 +20,36 @@
 // https://github.com/soliantconsulting/tagmanager/blob/master/tagmanager.js
 
 !function ( $ ) {
-  
+
   'use strict' // jshint ;_;
-  
+
   var Tag = function ( element, options ) {
     this.element = $(element)
     this.options = $.extend(true, {}, $.fn.tag.defaults, options)
     this.values = $.grep($.map(this.element.val().split(','), $.trim), function ( value ) { return value.length > 0 })
     this.show()
   }
-  
+
   Tag.prototype = {
     constructor: Tag
-    
+
   , show: function () {
       var that = this
-      
-      that.element.parent().prepend(that.element.detach().attr('type', 'hidden'))
+
+      that.element.parent().prepend(that.element.detach().hide())
       that.element
         .wrap($('<div class="tags">'))
         .parent()
         .on('click', function () {
           that.input.focus()
         })
-      
+
       if (that.values.length) {
         $.each(that.values, function () {
           that.createBadge(this)
         })
       }
-      
+
       that.input = $('<input type="text">')
         .attr('placeholder', that.options.placeholder)
         .insertAfter(that.element)
@@ -100,7 +100,7 @@
       $(that.input.data('typeahead').$menu).on('mousedown', function() {
         that.skip = true
       })
-      
+
       this.element.trigger('shown')
     }
   , inValues: function ( value ) {
@@ -119,8 +119,10 @@
     }
   , createBadge: function ( value ) {
     var that = this
-    
-    $('<span class="tag">')
+
+      $('<span/>', {
+        'class' : "tag"
+      })
       .text(value)
       .append($('<button type="button" class="close">&times;</button>')
         .on('click', function () {
@@ -131,7 +133,7 @@
   }
   , add: function ( value ) {
       var that = this
-      
+
       if ( !that.options.allowDuplicates ) {
         var index = that.inValues(value)
         if ( index != -1 ) {
@@ -143,10 +145,10 @@
           return
         }
       }
-      
+
       this.values.push(value)
       this.createBadge(value)
-      
+
       this.element.val(this.values.join(', '))
       this.element.trigger('added', [value])
     }
@@ -155,7 +157,7 @@
         var value = this.values.splice(index, 1)
         this.element.siblings('.tag:eq(' + index + ')').remove()
         this.element.val(this.values.join(', '))
-        
+
         this.element.trigger('removed', [value])
       }
     }
@@ -169,9 +171,9 @@
     }
   , skip: false
   }
-  
+
   var old = $.fn.tag
-  
+
   $.fn.tag = function ( option ) {
     return this.each(function () {
       var that = $(this)
@@ -181,21 +183,21 @@
       if (typeof option == 'string') data[option]()
     })
   }
-  
+
   $.fn.tag.defaults = {
     allowDuplicates: false
   , caseInsensitive: true
   , placeholder: ''
   , source: []
   }
-  
+
   $.fn.tag.Constructor = Tag
-  
+
   $.fn.tag.noConflict = function () {
     $.fn.tag = old
     return this
   }
-  
+
   $(window).on('load', function () {
     $('[data-provide="tag"]').each(function () {
       var that = $(this)
