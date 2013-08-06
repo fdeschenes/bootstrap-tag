@@ -17,8 +17,6 @@
  * limitations under the License.
  * ========================================================== */
 
-// https://github.com/soliantconsulting/tagmanager/blob/master/tagmanager.js
-
 !function ( $ ) {
 
   'use strict' // jshint ;_;
