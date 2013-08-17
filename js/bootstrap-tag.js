@@ -1,5 +1,5 @@
 /* ==========================================================
- * bootstrap-tag.js v2.2.5
+ * bootstrap-tag.js v2.2.6
  * https://github.com/fdeschenes/bootstrap-tag
  * ==========================================================
  * Copyright 2012 Francois Deschenes.
@@ -121,7 +121,7 @@
       $('<span/>', {
         'class' : "tag"
       })
-      .text(value)
+      .text(value.toString())
       .append($('<button type="button" class="close">&times;</button>')
         .on('click', function () {
           that.remove(that.element.siblings('.tag').index($(this).closest('.tag')))
