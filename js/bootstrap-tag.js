@@ -1,5 +1,5 @@
 /* ==========================================================
- * bootstrap-tag.js v2.2.6
+ * bootstrap-tag.js v2.3.0
  * https://github.com/fdeschenes/bootstrap-tag
  * ==========================================================
  * Copyright 2012 Francois Deschenes.
@@ -68,7 +68,11 @@
               if ( event.keyCode != 9 ) event.preventDefault()
               that.process()
             } else if ( event.keyCode == 188 ) {
-              if ( !that.element.siblings('.typeahead').length || that.element.siblings('.typeahead').is(':hidden') ) {
+              if ( !that.options.autocompleteOnComma ) {
+                event.preventDefault()
+                that.process()
+              }
+              else if ( !that.element.siblings('.typeahead').length || that.element.siblings('.typeahead').is(':hidden') ) {
                 event.preventDefault()
               } else {
                 that.input.data('typeahead').select()
@@ -185,6 +189,7 @@
   $.fn.tag.defaults = {
     allowDuplicates: false
   , caseInsensitive: true
+  , autocompleteOnComma: false
   , placeholder: ''
   , source: []
   }
