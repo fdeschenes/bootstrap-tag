@@ -68,7 +68,7 @@
               if ( event.keyCode != 9 ) event.preventDefault()
               that.process()
             } else if ( event.keyCode == 188 ) {
-              if ( !this.autocompleteOnComma ) {
+              if ( !that.options.autocompleteOnComma ) {
                 event.preventDefault()
                 that.process()
               }
@@ -189,6 +189,7 @@
   $.fn.tag.defaults = {
     allowDuplicates: false
   , caseInsensitive: true
+  , autocompleteOnComma: false
   , placeholder: ''
   , source: []
   }
