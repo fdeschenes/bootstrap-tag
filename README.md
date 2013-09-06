@@ -19,6 +19,7 @@ Alternatively, you can initialize via JavaScript:
 * **caseInsensitive** _(optional)_ Whether or not search and matching should be case insensitive. Default to `true`.
 * **allowDuplicates** _(optional)_ Whether or not to allow duplicate tags. Defaults to `false`.
 * **source** _(optional)_ The data source to query against. May be an array of strings or a function. Defaults to `[]`.
+* **autocompleteOnComma** _(optional)_ Autocomplete on comma type with the first suggested value (if any). Default to `false`. Thank you, [knightq](https://github.com/knightq)!
 
 ### Events
 
