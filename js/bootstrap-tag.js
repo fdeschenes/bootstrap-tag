@@ -63,12 +63,10 @@
           that.skip = false
         })
         .on('keydown', function ( event ) {
-          //if ( event.keyCode == 188 || event.keyCode == 13 || event.keyCode == 9 ) {
           if ( $.inArray(event.keyCode, that.options.addKeys) !== -1 && event.keyCode != 8 ) {
             if ( $.trim($(this).val()) && ( !that.element.siblings('.typeahead').length || that.element.siblings('.typeahead').is(':hidden') ) ) {
               if ( event.keyCode != 9 ) event.preventDefault()
               that.process()
-            //} else if ( event.keyCode == 188 ) {
             } else if ( event.keyCode == 188 || event.keyCode == that.options.autocompleteOnKey ) {  
               if ( !that.options.autocompleteOnComma && that.options.autocompleteOnKey === -1 ) {
                 event.preventDefault()
@@ -138,6 +136,10 @@
   , add: function ( value ) {
       var that = this
 
+      var addValue = {value: value};
+      this.element.trigger('add', addValue);
+      value = addValue.value;
+
       if ( !that.options.allowDuplicates ) {
         var index = that.inValues(value)
         if ( index != -1 ) {
@@ -153,7 +155,7 @@
       this.values.push(value)
       this.createBadge(value)
 
-      this.element.val(this.values.join(', '))
+      this.element.val(this.values.join(that.options.separator + ' '))
       this.element.trigger('added', [value])
     }
   , remove: function ( index ) {

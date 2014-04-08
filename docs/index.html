@@ -129,6 +129,10 @@
              </tr>
             </thead>
             <tbody>
+              <tr>
+               <td>add</td>
+               <td>This event is fired immediately before a tag will be added. The event handler will pass an object <code>obj.value</code> for you to get or modify.</td>
+             </tr>
              <tr>
                <td>added</td>
                <td>This event is fired immediately after a tag has been successfully added. The event handler will be passed the <code>value</code> that was added.</td>
@@ -140,9 +144,12 @@
             </tbody>
           </table>
           <pre class="prettyprint linenums">
-$('#myTag').on('added', function (e, value) {
+$('#myTag').on('add', function (e, t) {
+  t.value = t.value.split(' - ')[0];
+  // do other things before we add...
+}).on('added', function(e, value) {
   // do something...
-})</pre>
+}</pre>
         </section>
       </div>
     </div>
