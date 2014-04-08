@@ -63,12 +63,14 @@
           that.skip = false
         })
         .on('keydown', function ( event ) {
-          if ( event.keyCode == 188 || event.keyCode == 13 || event.keyCode == 9 ) {
+          //if ( event.keyCode == 188 || event.keyCode == 13 || event.keyCode == 9 ) {
+          if ( $.inArray(event.keyCode, that.options.addKeys) !== -1 && event.keyCode != 8 ) {
             if ( $.trim($(this).val()) && ( !that.element.siblings('.typeahead').length || that.element.siblings('.typeahead').is(':hidden') ) ) {
               if ( event.keyCode != 9 ) event.preventDefault()
               that.process()
-            } else if ( event.keyCode == 188 ) {
-              if ( !that.options.autocompleteOnComma ) {
+            //} else if ( event.keyCode == 188 ) {
+            } else if ( event.keyCode == 188 || event.keyCode == that.options.autocompleteOnKey ) {  
+              if ( !that.options.autocompleteOnComma && that.options.autocompleteOnKey === -1 ) {
                 event.preventDefault()
                 that.process()
               }
@@ -190,7 +192,9 @@
     allowDuplicates: false
   , caseInsensitive: true
   , autocompleteOnComma: false
+  , autocompleteOnKey: -1
   , placeholder: ''
+  , addKeys: [188, 13, 9]
   , source: []
   }
 
