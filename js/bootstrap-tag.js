@@ -24,7 +24,7 @@
   var Tag = function ( element, options ) {
     this.element = $(element)
     this.options = $.extend(true, {}, $.fn.tag.defaults, options)
-    this.values = $.grep($.map(this.element.val().split(','), $.trim), function ( value ) { return value.length > 0 })
+    this.values = $.grep($.map(this.element.val().split(this.options.separator), $.trim), function ( value ) { return value.length > 0 })
     this.show()
   }
 
@@ -166,7 +166,7 @@
       }
     }
   , process: function () {
-      var values = $.grep($.map(this.input.val().split(','), $.trim), function ( value ) { return value.length > 0 }),
+      var values = $.grep($.map(this.input.val().split(this.options.separator), $.trim), function ( value ) { return value.length > 0 }),
           that = this
       $.each(values, function() {
         that.add(this)
@@ -195,6 +195,7 @@
   , autocompleteOnKey: -1
   , placeholder: ''
   , addKeys: [188, 13, 9]
+  , separator: ','
   , source: []
   }
 

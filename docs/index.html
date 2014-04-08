@@ -34,9 +34,9 @@
           </div>
           <pre class="prettyprint linenums">&lt;input type="text" name="tags" data-provide="tag"&gt;</pre>
 
-          <p>Heres a javascript example. Separated by semi-colon (186), return/enter (13) and tab (9)</p>
+          <p>Heres a javascript example semi-colon separated values. Separated by semi-colon (186), return/enter (13) and tab (9)</p>
           <div class="bs-docs-example" style="background-color: #f5f5f5;">
-            <input type="text" name="tags" value="One, Five" id="tags">
+            <input type="text" name="tags" value="Texas, USA; Nevada; New York, USA" id="tags">
           </div>
           <pre class="prettyprint linenums">
 &lt;script&gt;
@@ -46,7 +46,8 @@
         $('#tags').tag({
           autocompleteOnKey: 186,
           addKeys: [186, 13, 9],
-          source: usStates
+          source: usStates,
+          separator: ';'
         })
     })
 &lt;/script&gt;</pre>
@@ -158,7 +159,8 @@ $('#myTag').on('added', function (e, value) {
             $('#tags').tag({
               autocompleteOnKey: 186,
               addKeys: [186, 13, 9],
-              source: usStates
+              source: usStates,
+              separator: ';'
             })
         })
     </script>
