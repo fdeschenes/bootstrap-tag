@@ -24,7 +24,7 @@
   var Tag = function ( element, options ) {
     this.element = $(element)
     this.options = $.extend(true, {}, $.fn.tag.defaults, options)
-    this.values = $.grep($.map(this.element.val().split(','), $.trim), function ( value ) { return value.length > 0 })
+    this.values = $.grep($.map(this.element.val().split(this.options.separator), $.trim), function ( value ) { return value.length > 0 })
     this.show()
   }
 
@@ -63,12 +63,12 @@
           that.skip = false
         })
         .on('keydown', function ( event ) {
-          if ( event.keyCode == 188 || event.keyCode == 13 || event.keyCode == 9 ) {
+          if ( $.inArray(event.keyCode, that.options.addKeys) !== -1 && event.keyCode != 8 ) {
             if ( $.trim($(this).val()) && ( !that.element.siblings('.typeahead').length || that.element.siblings('.typeahead').is(':hidden') ) ) {
               if ( event.keyCode != 9 ) event.preventDefault()
               that.process()
-            } else if ( event.keyCode == 188 ) {
-              if ( !that.options.autocompleteOnComma ) {
+            } else if ( event.keyCode == 188 || event.keyCode == that.options.autocompleteOnKey ) {  
+              if ( !that.options.autocompleteOnComma && that.options.autocompleteOnKey === -1 ) {
                 event.preventDefault()
                 that.process()
               }
@@ -136,6 +136,10 @@
   , add: function ( value ) {
       var that = this
 
+      var addValue = {value: value};
+      this.element.trigger('add', addValue);
+      value = addValue.value;
+
       if ( !that.options.allowDuplicates ) {
         var index = that.inValues(value)
         if ( index != -1 ) {
@@ -151,7 +155,7 @@
       this.values.push(value)
       this.createBadge(value)
 
-      this.element.val(this.values.join(', '))
+      this.element.val(this.values.join(that.options.separator + ' '))
       this.element.trigger('added', [value])
     }
   , remove: function ( index ) {
@@ -164,7 +168,7 @@
       }
     }
   , process: function () {
-      var values = $.grep($.map(this.input.val().split(','), $.trim), function ( value ) { return value.length > 0 }),
+      var values = $.grep($.map(this.input.val().split(this.options.separator), $.trim), function ( value ) { return value.length > 0 }),
           that = this
       $.each(values, function() {
         that.add(this)
@@ -190,7 +194,10 @@
     allowDuplicates: false
   , caseInsensitive: true
   , autocompleteOnComma: false
+  , autocompleteOnKey: -1
   , placeholder: ''
+  , addKeys: [188, 13, 9]
+  , separator: ','
   , source: []
   }
 
