@@ -153,6 +153,7 @@
 
       this.element.val(this.values.join(', '))
       this.element.trigger('added', [value])
+      return ''
     }
   , remove: function ( index ) {
       if ( index >= 0 ) {
